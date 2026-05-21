@@ -1,5 +1,7 @@
 package day8;
 
+// Program to demonstrate the usage of ArrayList from Collections Framework
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,6 +13,8 @@ public class LearnArrayList {
         // maintaining separate lists for rollNo and names. Must ensure atomic operations across both list.
         // implementing deletions and other complex operations on "student data" as a whole can become challenging
         // with addition of new attributes to students data
+
+        /*
         List<Integer> rollNoList = new ArrayList<>();
         List<String> nameList = new ArrayList<>();
 
@@ -20,12 +24,13 @@ public class LearnArrayList {
         addNewStudentToLists("David", 8, nameList, rollNoList);
 
         displayStudentsInfoFromIndividualLists(nameList, rollNoList);
+        */
 
         // Better approach: Create a "Student" class that encapsulates rollNo and Name into a single entity
 
+
         System.out.println("\n===========================\n");
         List<Student> students = new ArrayList<>();
-
 
         students.add(new Student("Neeraj", 17));
         students.add(new Student("Anu", 12));
@@ -37,6 +42,12 @@ public class LearnArrayList {
         students.sort(Comparator.comparingInt(Student::getRollNo));
 
         System.out.println("\nSorted by Roll nos:\n"+students);
+
+        System.out.println("\nRemoving Student at index 1: "+students.get(1));
+        students.remove(1);
+
+        System.out.println("\nNew list:\n"+students);
+
 
 
     }
