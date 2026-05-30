@@ -1,7 +1,7 @@
 package day9;
 
 // Program to generate all combinations of elements of a sorted (asc) positive integer array
-// that have sum=K. Duplicate combinations not allowed.
+// that have sum=K. Duplicate combinations not allowed. Can pick any number multiple times.
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,8 +10,8 @@ import java.util.Objects;
 
 public class CombinationSumPattern2 {
     public static void main(String[] args) {
-        int K = 8;
-        List<Integer> numbers = new ArrayList<>(Arrays.asList(2, 3, 5));
+        int K = 4;
+        List<Integer> numbers = new ArrayList<>(Arrays.asList(1,1,1,2,2));
 
         System.out.println("Sequence of numbers: "+numbers);
 
@@ -32,24 +32,25 @@ public class CombinationSumPattern2 {
             result.add(new ArrayList<>(currentCombination));
             return ;
         }
-        if(target<0 || index == candidates.size())
-            return ;
 
-        // Case 1: Explore all possibilities for the first elements of the combinations
+        // Each iteration considers element at j'th position in the candidates.
         for(int j=index; j<candidates.size(); j++){
+
+            // Skip over all duplicates as for the j'th element, choosing these elements would result in same combination
+            if(j>index && candidates.get(j).equals(candidates.get(j-1)))
+                continue ;
+
+            // Stop exploring further branches as all elements from hereon will be greater than target (bcoz sorted asc)
+            if(candidates.get(j)>target)
+                break ;
+
+            // Pick the j'th element from candidates array as the next element (index) of our resulting combination
             currentCombination.add(candidates.get(j));
-            findAllCombinations(j, candidates, target - candidates.get(j), result, currentCombination);
+            findAllCombinations(j+1, candidates, target - candidates.get(j), result, currentCombination);
+
+            // Remove the j'th element from resulting combination to explore combinations with other elements at index
+            currentCombination.removeLast();
         }
-
-
-
-        while(currentCombination.getLast().equals(candidates.get(j)))
-            j++;
-
-
-        // Case 2: Remove the current element
-        currentCombination.removeLast();
-        findAllCombinations(index+1, candidates, target - candidates.get(index), result, currentCombination);
 
     }
 }

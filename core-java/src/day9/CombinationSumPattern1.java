@@ -1,6 +1,6 @@
 package day9;
 
-// Program to generate all combinations of elements that have sum=K. Duplicates allowed.
+// Program to generate all combinations of elements that have sum=K. Duplicate combinations allowed.
 
 import java.util.Arrays;
 import java.util.ArrayList;
